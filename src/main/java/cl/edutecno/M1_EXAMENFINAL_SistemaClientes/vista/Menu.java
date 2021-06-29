@@ -41,10 +41,10 @@ public class Menu {
 
 				switch (opcion) {
 				case 1:
-					listarCliente(listaClientes);
+					listarCliente();
 					break;
 				case 2:
-					agregarCliente(listaClientes);
+					agregarCliente();
 					break;
 				case 3:
 					editarCliente();
@@ -75,37 +75,14 @@ public class Menu {
 
 	}
 
-	public void listarCliente(List<Cliente> listaClientes) {
+	public void listarCliente() {
 		
-		try {
-			if (listaClientes.size() != 0) {
-				
-				for (Cliente cliente : listaClientes) {
-					System.out.println("");
-					System.out.println("---------------DATOS DEL CLIENTE---------------");
-					System.out.println("");
-					System.out.printf("Run del cliente: %s\n", cliente.getRunCliente());
-					System.out.printf("Nombre del cliente: %s\n", cliente.getNombreCliente());
-					System.out.printf("Apellido del cliente: %s\n", cliente.getApellidoCliente());
-					System.out.printf("Años como cliente: %s años\n", cliente.getAniosCliente());
-					System.out.printf("Categoria del cliente: %s\n", cliente.getNombreCategoria());
-					System.out.println("");
-					System.out.println("------------------------------------------------");
-				}
-				
-			}else {
-				System.out.println("No se puede listar alumnos");
-			}
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Error en ejecucion Listar Cliente: " + e.getMessage());
-		}
+		clienteServicio.listarCliente();
 		
 		System.out.println("");
 	}
 
-	public List<Cliente> agregarCliente(List<Cliente> listaClientes) {
+	public void agregarCliente() {
 
 		String dato = "";
 		Cliente cliente = new Cliente();
@@ -126,28 +103,57 @@ public class Menu {
 			cliente.setApellidoCliente(dato);
 			System.out.print("Ingrese años como Cliente: ");
 			dato = scS.nextLine();
-			cliente.setAniosCliente(dato);
+			cliente.setAniosCliente(dato + " años");
 			cliente.setNombreCategoria(CategoriaEnum.ACTIVO);// Por defecto al crear cliente
 			
-			listaClientes.add(cliente);//Se agrega cliente en listaClientes
-			//clienteServicio.agregarCliente(listaClientes, cliente);
-			System.out.println("");
-			System.out.println("Cliente creado");
+			clienteServicio.agregarCliente(cliente);
+			
 
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error en ejecucion Crear Cliente: " + e.getMessage());
 		}
 		
-		System.out.println("-----------------------------------------");
+		System.out.println("-------------------------------------------");
 		System.out.println("");
-		return listaClientes;
+		//return listaClientes;
 	}
 
 	public void editarCliente() {
-		// Permite la edicion de algun cliente en caso de requerirlo o cambiar el estado
-		// del cliente.
-		System.out.println("Metodo editarCliente");
+		int opcion;
+		String rut;
+		
+		try {
+			System.out.println("");
+			System.out.println("---------------EDITAR CLIENTE---------------");
+			System.out.println("");
+			System.out.println("Seleccione qué desea hacer");
+			System.out.println("1. Cambiar el estado del Cliente");
+			System.out.println("2. Editar los datos ingresados del Cliente");
+			System.out.println("3. Retornar al menu principal");
+			System.out.println("");
+			System.out.print("Ingrese opcion: ");
+			opcion = scI.nextInt();
+			if (opcion == 3) {
+				System.out.println("-------------------------------------------");
+				System.out.println("");
+				iniciarMenu(scI);
+			}else if (opcion == 1 || opcion == 2) {
+				System.out.print("Ingrese RUN del cliente a editar: ");
+				rut = scS.nextLine();
+				clienteServicio.editarCliente(rut, opcion);
+			}else {
+				System.out.println("Opcion no valida");
+			}
+			System.out.println("-------------------------------------------");
+			System.out.println("");
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error en ejecucion Editar Cliente: " + e.getMessage());
+		}
+		
 	}
 
 	public void importarDatos() {
