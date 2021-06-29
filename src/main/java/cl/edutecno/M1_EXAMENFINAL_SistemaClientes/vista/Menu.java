@@ -24,9 +24,9 @@ public class Menu {
 
 	// Metodos
 	public void iniciarMenu(Scanner scI) {
-		
+
 		List<Cliente> listaClientes = clienteServicio.getListaCliente();
-		
+
 		try {
 			int opcion;
 			do {
@@ -72,13 +72,12 @@ public class Menu {
 			// TODO: handle exception
 			System.out.println("Error en ejecucion menu: " + e.getMessage());
 		}
-
 	}
 
 	public void listarCliente() {
-		
+
 		clienteServicio.listarCliente();
-		
+
 		System.out.println("");
 	}
 
@@ -105,24 +104,23 @@ public class Menu {
 			dato = scS.nextLine();
 			cliente.setAniosCliente(dato + " años");
 			cliente.setNombreCategoria(CategoriaEnum.ACTIVO);// Por defecto al crear cliente
-			
+
 			clienteServicio.agregarCliente(cliente);
-			
 
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error en ejecucion Crear Cliente: " + e.getMessage());
 		}
-		
+
 		System.out.println("-------------------------------------------");
 		System.out.println("");
-		//return listaClientes;
+		// return listaClientes;
 	}
 
 	public void editarCliente() {
 		int opcion;
 		String rut;
-		
+
 		try {
 			System.out.println("");
 			System.out.println("---------------EDITAR CLIENTE---------------");
@@ -138,27 +136,42 @@ public class Menu {
 				System.out.println("-------------------------------------------");
 				System.out.println("");
 				iniciarMenu(scI);
-			}else if (opcion == 1 || opcion == 2) {
-				System.out.print("Ingrese RUN del cliente a editar: ");
-				rut = scS.nextLine();
-				clienteServicio.editarCliente(rut, opcion);
-			}else {
+			} else if (opcion == 1 || opcion == 2) {
+				clienteServicio.editarCliente(opcion);
+			} else {
 				System.out.println("Opcion no valida");
 			}
 			System.out.println("-------------------------------------------");
 			System.out.println("");
-			
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error en ejecucion Editar Cliente: " + e.getMessage());
 		}
-		
 	}
 
 	public void importarDatos() {
-		// Ejecuta la carga de datos del archivo "DBCLientes.csv"
-		System.out.println("Metodo impotarDatos");
+
+		String ruta;
+
+		try {
+			System.out.println("");
+			System.out.println("---------------CARGAR DATOS---------------");
+			System.out.println("");
+			System.out.print("Ingesa la ruta en donde se encuentra el archivo DBClientes.csv: ");
+			ruta = scS.nextLine() + "/" + fileName1;//Ruta ejemplo: src/directorio
+
+			for (Cliente cliente : archivoServicio.cargarDatos(ruta)) {
+				clienteServicio.getListaCliente().add(cliente);
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error en ejecucion Cargar Cliente: " + e.getMessage());
+		}
+		System.out.println("-------------------------------------------");
+		System.out.println("");
 	}
 
 	public void exportarDatos() {

@@ -12,13 +12,15 @@ import cl.edutecno.M1_EXAMENFINAL_SistemaClientes.modelo.Cliente;
 public class ClienteServicio {
 
 	List<Cliente> listaCliente;
+	Scanner scI = new Scanner(System.in);
+	Scanner scS = new Scanner(System.in);
 
 	// Metodos
 	public void listarCliente() {
-		
+
 		try {
 			if (listaCliente.size() != 0 && listaCliente != null) {
-				
+
 				for (Cliente cliente : listaCliente) {
 					System.out.println("");
 					System.out.println("---------------DATOS DEL CLIENTE---------------");
@@ -31,11 +33,12 @@ public class ClienteServicio {
 					System.out.println("");
 					System.out.println("-------------------------------------------");
 				}
-				
-			}else {
+
+			} else {
 				System.out.println("No se puede listar alumnos");
+				System.out.println("-------------------------------------------");
 			}
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error en ejecucion Listar Cliente: " + e.getMessage());
@@ -43,26 +46,27 @@ public class ClienteServicio {
 	}
 
 	public void agregarCliente(Cliente cliente) {
-		
+
 		if (listaCliente != null) {
 			listaCliente.add(cliente);
-		}else {
+		} else {
 			listaCliente = new ArrayList<Cliente>();
 			listaCliente.add(cliente);
 		}
 		System.out.println("");
 		System.out.println("Cliente creado");
-		
+
 	}
 
-	public void editarCliente(String rut, int opcion) {
-		Scanner scI = new Scanner(System.in);
-		Scanner scS = new Scanner(System.in);
+	public void editarCliente(int opcion) {
 		int opcion2;
 		int opcion3;
+		String rut;
+
+		System.out.print("Ingrese RUN del cliente a editar: ");
+		rut = verificaRut(scS.nextLine());
 		
-		//Agregar
-		
+
 		switch (opcion) {
 		case 1:
 			System.out.println("-----Actualizando estado del cliente-----");
@@ -79,7 +83,7 @@ public class ClienteServicio {
 						if (opcion2 == 1) {
 							clienteTemp.setNombreCategoria(CategoriaEnum.INACTIVO);
 						}
-					}else if (clienteTemp.getNombreCategoria() == CategoriaEnum.INACTIVO) {
+					} else if (clienteTemp.getNombreCategoria() == CategoriaEnum.INACTIVO) {
 						System.out.println("1.-Si desea cambiar el estado del Cliente a Activo");
 						System.out.println("2.-Si desea mantener el estado del cliente Inactivo");
 						System.out.println("");
@@ -94,41 +98,48 @@ public class ClienteServicio {
 				}
 			}
 			break;
+			
 		case 2:
 			System.out.println("-----Actualizando datos del cliente-----");
 			System.out.println("");
 			listaCliente.stream().filter(cliente -> cliente.getRunCliente().equalsIgnoreCase(rut))
-			.forEach(i -> System.out.println(
-					"1.-El Run del cliente es: " + i.getRunCliente() + "\n" +
-					"2.-El nombre del Cliente es: " + i.getNombreCliente() + "\n" +
-					"3.-El Apellido del Cliente es: " + i.getApellidoCliente() + "\n" +
-					"4.-Los años como Cliente son: " + i.getAniosCliente()));
-			
+					.forEach(i -> System.out.println("1.-El Run del cliente es: " + i.getRunCliente() + "\n"
+							+ "2.-El nombre del Cliente es: " + i.getNombreCliente() + "\n"
+							+ "3.-El Apellido del Cliente es: " + i.getApellidoCliente() + "\n"
+							+ "4.-Los años como Cliente son: " + i.getAniosCliente()));
+
 			System.out.println("");
 			System.out.print("Ingrese opcion a editar de los datos del cliente: ");
 			opcion3 = scI.nextInt();
 			System.out.println("-------------------------------------------");
-			String datoNuevo;
 			switch (opcion3) {
 			case 1:
 				System.out.print("1.-Ingrese nuevo RUN del Cliente: ");
-				datoNuevo = scS.nextLine();
-				listaCliente.stream().filter(cliente -> cliente.getRunCliente().equalsIgnoreCase(rut)).forEach(i -> i.setRunCliente(datoNuevo));
+				listaCliente.stream().filter(cliente -> cliente.getRunCliente().equalsIgnoreCase(rut))
+						.forEach(i -> i.setRunCliente(scS.nextLine()));
+				System.out.println("-------------------------------------------");
+				System.out.println("Datos cambiados con éxito");
 				break;
 			case 2:
 				System.out.print("1.-Ingrese nuevo Nombre del Cliente: ");
-				datoNuevo = scS.nextLine();
-				listaCliente.stream().filter(cliente -> cliente.getRunCliente().equalsIgnoreCase(rut)).forEach(i -> i.setNombreCliente(datoNuevo));
+				listaCliente.stream().filter(cliente -> cliente.getRunCliente().equalsIgnoreCase(rut))
+						.forEach(i -> i.setNombreCliente(scS.nextLine()));
+				System.out.println("-------------------------------------------");
+				System.out.println("Datos cambiados con éxito");
 				break;
 			case 3:
 				System.out.print("1.-Ingrese nuevo Apellido del Cliente: ");
-				datoNuevo = scS.nextLine();
-				listaCliente.stream().filter(cliente -> cliente.getRunCliente().equalsIgnoreCase(rut)).forEach(i -> i.setApellidoCliente(datoNuevo));
+				listaCliente.stream().filter(cliente -> cliente.getRunCliente().equalsIgnoreCase(rut))
+						.forEach(i -> i.setApellidoCliente(scS.nextLine()));
+				System.out.println("-------------------------------------------");
+				System.out.println("Datos cambiados con éxito");
 				break;
 			case 4:
 				System.out.print("1.-Ingrese nuevos años del Cliente: ");
-				datoNuevo = scS.nextLine();
-				listaCliente.stream().filter(cliente -> cliente.getRunCliente().equalsIgnoreCase(rut)).forEach(i -> i.setAniosCliente(datoNuevo + " años"));
+				listaCliente.stream().filter(cliente -> cliente.getRunCliente().equalsIgnoreCase(rut))
+						.forEach(i -> i.setAniosCliente(scS.nextLine() + " años"));
+				System.out.println("-------------------------------------------");
+				System.out.println("Datos cambiados con éxito");
 				break;
 			default:
 				System.out.println("---------------OPCION NO VALIDA---------------");
@@ -139,9 +150,26 @@ public class ClienteServicio {
 			System.out.println("---------------OPCION NO VALIDA---------------");
 			break;
 		}
-		System.out.println("-------------------------------------------");
-		System.out.println("Datos cambiados con éxito");
 		
+
+	}
+
+	public String verificaRut(String rut) {
+		boolean condition = false;
+
+		do {
+			for (Cliente cliente : listaCliente) {
+				if (cliente.getRunCliente().equalsIgnoreCase(rut)) {
+					condition = true;
+				}
+			}
+			if (!condition) {
+				System.out.printf("RUN del Cliente '%s' no encontrado, favor de volver a ingresar: ", rut);
+				rut = scS.nextLine();
+			}
+		} while (!condition);
+
+		return rut;
 	}
 
 	// Constructores
