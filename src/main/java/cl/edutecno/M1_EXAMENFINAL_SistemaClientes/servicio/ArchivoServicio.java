@@ -36,12 +36,11 @@ public class ArchivoServicio extends Exportador{
 					cliente.setNombreCliente(arrayData[1]);
 					cliente.setApellidoCliente(arrayData[2]);
 					cliente.setAniosCliente(arrayData[3]);
-					System.out.println(cliente);
-					cliente.setNombreCategoria(CategoriaEnum.valueOf(arrayData[4]));
+					cliente.setNombreCategoria(CategoriaEnum.valueOf(arrayData[4].toUpperCase()));
 					listaClientes.add(cliente);
-					System.out.println(cliente);
-					System.out.println("Datos cargados correctamente en la lista");
+					data = br.readLine();
 				}
+				System.out.println("Datos cargados correctamente en la lista");
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

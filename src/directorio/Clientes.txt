@@ -1,0 +1,5 @@
+1-9,Rodrigo,Pereira,10 años,ACTIVO
+17.162.856-5,Iron,Manjar,1 año,ACTIVO
+10.513.821-6,Thor,Tita,4 años,ACTIVO
+17.151.677-8,Capitan,Marraqueta,9 años,INACTIVO
+1-8,Alonso,Yañez,5 años,ACTIVO

@@ -175,8 +175,38 @@ public class Menu {
 	}
 
 	public void exportarDatos() {
-		// Llama a metodo para exportar clientes en formato ".txt" O ".csv"
-		System.out.println("Metodo exportarDatos");
+		int opcion;
+		
+		try {
+			System.out.println("");
+			System.out.println("---------------CARGAR DATOS---------------");
+			System.out.println("");
+			System.out.println("Seleccione el formato a exportar:");
+			System.out.println("1.-Formato csv");
+			System.out.println("2.-Formato txt");
+			System.out.println("");
+			System.out.print("Ingrese una opcion para exportar: ");
+			opcion = scI.nextInt();
+			System.out.println("-------------------------------------------");
+			
+			switch (opcion) {
+			case 1:
+				System.out.printf("Ingresa la ruta en donde desea exportar el archivo %s.csv\n", fileName);
+				exportadorCsv.exportar(scS.nextLine() + "/" + fileName + ".csv", clienteServicio.getListaCliente());
+				break;//Ruta formato ejemplo: src/directorio
+			case 2:
+				System.out.printf("Ingresa la ruta en donde desea exportar el archivo %s.txt\n", fileName);
+				exportarTxt.exportar(scS.nextLine() + "/" + fileName + ".txt", clienteServicio.getListaCliente());
+				break;//Ruta formato ejemplo: src/directorio
+			default:
+				break;
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error en ejecucion Exportar Cliente: " + e.getMessage());
+		}
+		
 	}
 
 	public void terminarPrograma() {
