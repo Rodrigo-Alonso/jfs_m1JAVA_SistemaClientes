@@ -1,20 +1,20 @@
 package cl.edutecno.M1_EXAMENFINAL_SistemaClientes.servicio;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.List;
 
 import cl.edutecno.M1_EXAMENFINAL_SistemaClientes.modelo.Cliente;
 import cl.edutecno.M1_EXAMENFINAL_SistemaClientes.utilidades.Utilidad;
+import cl.edutecno.M1_EXAMENFINAL_SistemaClientes.vista.Menu;
 
 public class ExportadorTxt extends Exportador {
 
 	// Metodos
 	@Override
 	public void exportar(String fileName, List<Cliente> listaClientes) {
+		Menu menu = new Menu();
 		Utilidad utilidad = new Utilidad();
 		try {
 			File archivo = new File(fileName);
@@ -36,6 +36,7 @@ public class ExportadorTxt extends Exportador {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error en exportado de datos a .txt: " + e.getMessage());
+			menu.exportarDatos();
 		}
 
 	}

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.lang.model.element.Element;
-
 import cl.edutecno.M1_EXAMENFINAL_SistemaClientes.modelo.CategoriaEnum;
 import cl.edutecno.M1_EXAMENFINAL_SistemaClientes.modelo.Cliente;
 
@@ -23,7 +21,7 @@ public class ClienteServicio {
 
 				for (Cliente cliente : listaCliente) {
 					System.out.println("");
-					System.out.println("---------------DATOS DEL CLIENTE---------------");
+					System.out.println("-------------DATOS DEL CLIENTE-------------");
 					System.out.println("");
 					System.out.printf("Run del cliente: %s\n", cliente.getRunCliente());
 					System.out.printf("Nombre del cliente: %s\n", cliente.getNombreCliente());
@@ -69,7 +67,7 @@ public class ClienteServicio {
 
 		switch (opcion) {
 		case 1:
-			System.out.println("-----Actualizando estado del cliente-----");
+			System.out.println("------Actualizando estado del cliente------");
 			
 			for (Cliente clienteTemp : listaCliente) {
 				if (clienteTemp.getRunCliente().equalsIgnoreCase(rut)) {
@@ -100,7 +98,7 @@ public class ClienteServicio {
 			break;
 			
 		case 2:
-			System.out.println("-----Actualizando datos del cliente-----");
+			System.out.println("-------Actualizando datos del cliente------");
 			System.out.println("");
 			listaCliente.stream().filter(cliente -> cliente.getRunCliente().equalsIgnoreCase(rut))
 					.forEach(i -> System.out.println("1.-El Run del cliente es: " + i.getRunCliente() + "\n"
@@ -142,12 +140,12 @@ public class ClienteServicio {
 				System.out.println("Datos cambiados con éxito");
 				break;
 			default:
-				System.out.println("---------------OPCION NO VALIDA---------------");
+				System.out.println("-------------OPCION NO VALIDA--------------");
 				break;
 			}
 			break;
 		default:
-			System.out.println("---------------OPCION NO VALIDA---------------");
+			System.out.println("--------------OPCION NO VALIDA-------------");
 			break;
 		}
 		
@@ -155,19 +153,20 @@ public class ClienteServicio {
 	}
 
 	public String verificaRut(String rut) {
-		boolean condition = false;
+		boolean condition = true;
 
 		do {
 			for (Cliente cliente : listaCliente) {
 				if (cliente.getRunCliente().equalsIgnoreCase(rut)) {
-					condition = true;
+					condition = false;
 				}
 			}
 			if (!condition) {
+				System.out.println("");
 				System.out.printf("RUN del Cliente '%s' no encontrado, favor de volver a ingresar: ", rut);
 				rut = scS.nextLine();
 			}
-		} while (!condition);
+		} while (condition);
 
 		return rut;
 	}
@@ -175,6 +174,10 @@ public class ClienteServicio {
 	// Constructores
 	public ClienteServicio(List<Cliente> listaCliente) {
 		this.listaCliente = new ArrayList<Cliente>();
+	}
+
+	public ClienteServicio() {
+		super();
 	}
 
 	// G&S

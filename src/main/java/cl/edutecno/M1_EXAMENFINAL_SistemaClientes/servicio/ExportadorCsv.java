@@ -7,12 +7,14 @@ import java.util.List;
 
 import cl.edutecno.M1_EXAMENFINAL_SistemaClientes.modelo.Cliente;
 import cl.edutecno.M1_EXAMENFINAL_SistemaClientes.utilidades.Utilidad;
+import cl.edutecno.M1_EXAMENFINAL_SistemaClientes.vista.Menu;
 
 public class ExportadorCsv extends Exportador {
 
 	// Metodos
 	@Override
 	public void exportar(String fileName, List<Cliente> listaClientes) {
+		Menu menu = new Menu();
 		Utilidad utilidad = new Utilidad();
 		try {
 			File archivo = new File(fileName);
@@ -35,6 +37,7 @@ public class ExportadorCsv extends Exportador {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error en exportado de datos a .csv: " + e.getMessage());
+			menu.exportarDatos();
 		}
 
 	}

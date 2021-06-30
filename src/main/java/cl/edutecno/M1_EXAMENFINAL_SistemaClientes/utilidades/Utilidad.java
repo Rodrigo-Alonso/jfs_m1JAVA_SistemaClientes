@@ -3,8 +3,11 @@ package cl.edutecno.M1_EXAMENFINAL_SistemaClientes.utilidades;
 import java.io.File;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utilidad {
+	static Scanner scS = new Scanner(System.in);
 
 	// Metodos
 	public void tiempoEspera() {
@@ -39,10 +42,9 @@ public class Utilidad {
 		}
 		System.exit(0);
 	}
-	
+
 	public boolean comprobarFichero(File fichero) {
 
-		Scanner scS = new Scanner(System.in);
 		boolean crear = false;
 		boolean condicion = true;
 		String respuesta = " ";
@@ -71,6 +73,29 @@ public class Utilidad {
 			System.out.println("Ha ocurrido un error al crear el archivo - " + e.getMessage());
 		}
 		return crear;
+	}
+
+	/*** Validación de RUT Chileno***/
+	/****
+	 * Valida rut de la forma XXXXXXXX-X
+	 */
+	public static Boolean validaRut(String rut) {
+		rut = rut.replace(".", "");
+		Pattern pattern = Pattern.compile("^[0-9]+-[0-9kK]{1}$");
+		Matcher matcher = pattern.matcher(rut);
+		if (matcher.matches() == false)
+			return false;
+		String[] stringRut = rut.split("-");
+		return stringRut[1].toLowerCase().equals(dv(stringRut[0]));
+	}
+
+	/*** Valida el dígito verificador ***/
+	public static String dv(String rut) {
+		Integer M = 0, S = 1, T = Integer.parseInt(rut);
+		for (; T != 0; T = (int) Math.floor(T /= 10))
+			S = (S + T % 10 * (9 - M++ % 6)) % 11;
+		return (S > 0) ? String.valueOf(S - 1) : "k";
+
 	}
 
 }

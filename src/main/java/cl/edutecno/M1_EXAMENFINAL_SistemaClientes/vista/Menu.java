@@ -1,6 +1,4 @@
 package cl.edutecno.M1_EXAMENFINAL_SistemaClientes.vista;
-
-import java.util.List;
 import java.util.Scanner;
 
 import cl.edutecno.M1_EXAMENFINAL_SistemaClientes.modelo.CategoriaEnum;
@@ -24,8 +22,6 @@ public class Menu {
 
 	// Metodos
 	public void iniciarMenu(Scanner scI) {
-
-		List<Cliente> listaClientes = clienteServicio.getListaCliente();
 
 		try {
 			int opcion;
@@ -59,7 +55,7 @@ public class Menu {
 					terminarPrograma();
 					break;
 				default:
-					System.out.println("---------------OPCION NO VALIDA---------------");
+					System.out.println("--------------OPCION NO VALIDA-------------");
 					break;
 				}
 
@@ -91,8 +87,17 @@ public class Menu {
 			System.out.println("");
 			System.out.println("---------------CREAR CLIENTE---------------");
 			System.out.println("");
-			System.out.print("Ingrese RUN del Cliente: ");
-			dato = scS.nextLine();
+			
+			do {//Validacion de rut en formato XX.XXX.XXX-X
+				System.out.print("Ingrese RUN del Cliente: ");
+				dato = scS.nextLine();
+				if (Utilidad.validaRut(dato)) {
+					System.out.println("Rut ingresado correctamente");
+				}else {
+					System.out.println("Rut ingresado de forma erronea, volver a ingresar");
+				}
+			} while (!Utilidad.validaRut(dato));
+			
 			cliente.setRunCliente(dato);
 			System.out.print("Ingrese Nombre del Cliente: ");
 			dato = scS.nextLine();
@@ -105,7 +110,7 @@ public class Menu {
 			cliente.setAniosCliente(dato + " años");
 			cliente.setNombreCategoria(CategoriaEnum.ACTIVO);// Por defecto al crear cliente
 
-			clienteServicio.agregarCliente(cliente);
+			clienteServicio.agregarCliente(cliente);//Metodo para agregar cliente
 
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -119,11 +124,10 @@ public class Menu {
 
 	public void editarCliente() {
 		int opcion;
-		String rut;
 
 		try {
 			System.out.println("");
-			System.out.println("---------------EDITAR CLIENTE---------------");
+			System.out.println("---------------EDITAR CLIENTE--------------");
 			System.out.println("");
 			System.out.println("Seleccione qué desea hacer");
 			System.out.println("1. Cambiar el estado del Cliente");
@@ -156,7 +160,7 @@ public class Menu {
 
 		try {
 			System.out.println("");
-			System.out.println("---------------CARGAR DATOS---------------");
+			System.out.println("---------------CARGAR DATOS----------------");
 			System.out.println("");
 			System.out.print("Ingesa la ruta en donde se encuentra el archivo DBClientes.csv: ");
 			ruta = scS.nextLine() + "/" + fileName1;//Ruta ejemplo: src/directorio
@@ -179,7 +183,7 @@ public class Menu {
 		
 		try {
 			System.out.println("");
-			System.out.println("---------------CARGAR DATOS---------------");
+			System.out.println("---------------EXPORTAR DATOS----------------");
 			System.out.println("");
 			System.out.println("Seleccione el formato a exportar:");
 			System.out.println("1.-Formato csv");
