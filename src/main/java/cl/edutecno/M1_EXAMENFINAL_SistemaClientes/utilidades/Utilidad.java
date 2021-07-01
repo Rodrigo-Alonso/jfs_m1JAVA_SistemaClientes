@@ -60,7 +60,7 @@ public class Utilidad {
 						crear = true;
 						condicion = false;
 					} else if (respuesta.equalsIgnoreCase("n")) {
-						System.out.println("No se escribira en el archivo notas.txt");
+						System.out.println("No se sobreescribira el archivo");
 						crear = false;
 						condicion = false;
 					} else {

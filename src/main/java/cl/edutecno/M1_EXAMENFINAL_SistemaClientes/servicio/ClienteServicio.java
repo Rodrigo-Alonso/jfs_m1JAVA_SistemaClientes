@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import cl.edutecno.M1_EXAMENFINAL_SistemaClientes.modelo.CategoriaEnum;
 import cl.edutecno.M1_EXAMENFINAL_SistemaClientes.modelo.Cliente;
+import cl.edutecno.M1_EXAMENFINAL_SistemaClientes.vista.Menu;
 
 public class ClienteServicio {
 
@@ -15,6 +16,7 @@ public class ClienteServicio {
 
 	// Metodos
 	public void listarCliente() {
+		Menu menu = new Menu();
 
 		try {
 			if (listaCliente.size() != 0 && listaCliente != null) {
@@ -40,6 +42,7 @@ public class ClienteServicio {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error en ejecucion Listar Cliente: " + e.getMessage());
+			menu.iniciarMenu(scI);
 		}
 	}
 
@@ -88,7 +91,7 @@ public class ClienteServicio {
 						System.out.print("Ingrese opcion: ");
 						opcion2 = scI.nextInt();
 						if (opcion2 == 1) {
-							clienteTemp.setNombreCategoria(CategoriaEnum.INACTIVO);
+							clienteTemp.setNombreCategoria(CategoriaEnum.ACTIVO);
 						}
 					} else {
 						System.out.println("No se puedo cambiar el estado del cliente");
@@ -154,18 +157,18 @@ public class ClienteServicio {
 
 	public String verificaRut(String rut) {
 		boolean condition = true;
-
+		//rut = rut.replace(".", "");
+		
 		do {
 			for (Cliente cliente : listaCliente) {
 				if (cliente.getRunCliente().equalsIgnoreCase(rut)) {
 					condition = false;
-				}
+				} 
 			}
-			if (!condition) {
-				System.out.println("");
-				System.out.printf("RUN del Cliente '%s' no encontrado, favor de volver a ingresar: ", rut);
-				rut = scS.nextLine();
-			}
+			
+			System.out.println("");
+			System.out.printf("RUN del Cliente '%s' no encontrado, favor de volver a ingresar: ", rut);
+			rut = scS.nextLine();
 		} while (condition);
 
 		return rut;

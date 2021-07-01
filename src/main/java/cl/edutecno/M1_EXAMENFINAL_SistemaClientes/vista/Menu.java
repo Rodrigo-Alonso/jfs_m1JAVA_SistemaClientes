@@ -67,6 +67,7 @@ public class Menu {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error en ejecucion menu: " + e.getMessage());
+			
 		}
 	}
 
@@ -115,11 +116,11 @@ public class Menu {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error en ejecucion Crear Cliente: " + e.getMessage());
+			iniciarMenu(scI);
 		}
 
 		System.out.println("-------------------------------------------");
 		System.out.println("");
-		// return listaClientes;
 	}
 
 	public void editarCliente() {
@@ -144,6 +145,8 @@ public class Menu {
 				clienteServicio.editarCliente(opcion);
 			} else {
 				System.out.println("Opcion no valida");
+				System.out.println("");
+				editarCliente();
 			}
 			System.out.println("-------------------------------------------");
 			System.out.println("");
@@ -151,6 +154,7 @@ public class Menu {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error en ejecucion Editar Cliente: " + e.getMessage());
+			iniciarMenu(scS);
 		}
 	}
 
@@ -173,6 +177,7 @@ public class Menu {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error en ejecucion Cargar Cliente: " + e.getMessage());
+			iniciarMenu(scI);
 		}
 		System.out.println("-------------------------------------------");
 		System.out.println("");
@@ -209,6 +214,7 @@ public class Menu {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error en ejecucion Exportar Cliente: " + e.getMessage());
+			iniciarMenu(scI);
 		}
 		
 	}
